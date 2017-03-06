@@ -9,35 +9,37 @@ const SearchBar = () => {
 };
 */
 
+// functional component -> props
+// class component -> this.props
+
 // class base component:
 class SearchBar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { term: 'hi' };
+    this.state = { term: '' };
   }
 
   render() {
     return (
-      <div>
+      <div className='search-bar'>
         <input
           value={this.state.term}
-          onChange={(event) =>
-            //console.log(event.target.value)
-            this.setState({ term: event.target.value })
-          }
+          onChange={(event) => {
+            this.onInputChange(event.target.value);
+          }}
         />
-        Value of the input: {this.state.term}
     </div>
     );
   }
 
-  someOtherFunction(event) {
-
+  onInputChange(term) {
+    this.setState({ term });
+    this.props.onSearchTermChange(term);
   }
 }
 
 export default SearchBar;
 
 // functional base vs class base:
-// recommended to start with functional and if the need arises so refactor to class
+// recommended to start with functional and if the need arises (probably need of state) so refactor to class
